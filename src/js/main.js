@@ -60,9 +60,19 @@ AppView.prototype.render = function () {
 }
 
 function PictureView (model) {
+    var _this = this;
     this.el = $('<div></div>')
     this.model = model;
     model.on("change", this.render.bind(this));
+
+    this.el.on('click', '.likes', function () {
+        _this.model.set('likes', _this.model.get('likes') + 1);
+        $('.likes').text(_this.model.get('likes'));
+    });
+
+    this.el.on('click', '.delete', function () {
+        _this.model.destroy();
+    });
 }
 
 PictureView.prototype.render = function () {
@@ -73,18 +83,6 @@ PictureView.prototype.render = function () {
             <button class="likes">${this.model.get('likes')}</button>
             <button class="delete">Delete</button>
         `);
-
-    var likesButton = this.el.find('button.likes');
-
-    likesButton.on('click', function() {
-        _this.model.set('likes', _this.model.get('likes') + 1);
-    });
-
-    var deleteButton = this.el.find('button.delete');
-    deleteButton.on('click', function() {
-        _this.model.destroy();
-    }); 
-
 }
 
 var appView = new AppView(collection);
