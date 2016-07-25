@@ -67,7 +67,6 @@ function PictureView (model) {
 
     this.el.on('click', '.likes', function () {
         _this.model.set('likes', _this.model.get('likes') + 1);
-        $('.likes').text(_this.model.get('likes'));
     });
 
     this.el.on('click', '.delete', function () {
